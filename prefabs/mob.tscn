@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://m47fldcaklxo"]
+
+[ext_resource type="Script" path="res://scripts/MobController.gd" id="1_jekua"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6707p"]
+radius = 0.25
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2yes1"]
+shading_mode = 0
+albedo_color = Color(0.490196, 0.811765, 0.658824, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5xxeg"]
+radius = 0.25
+height = 1.0
+
+[node name="Mob" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1.00926)
+collision_layer = 3
+script = ExtResource("1_jekua")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_6707p")
+surface_material_override/0 = SubResource("StandardMaterial3D_2yes1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_5xxeg")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+neighbor_distance = 0.1
+max_speed = 10000.0
+
+[connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]
