@@ -1,36 +1,142 @@
-[gd_scene load_steps=5 format=3 uid="uid://m47fldcaklxo"]
+[gd_scene load_steps=12 format=3 uid="uid://m47fldcaklxo"]
 
 [ext_resource type="Script" path="res://scripts/MobController.gd" id="1_jekua"]
+[ext_resource type="PackedScene" uid="uid://5g36qi0bhnkf" path="res://models/chicken.gltf" id="2_5c1kv"]
+[ext_resource type="Texture2D" uid="uid://cgtttis0vmqj8" path="res://img/feather.png" id="3_jmmmi"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_6707p"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_f12my"]
 radius = 0.25
 height = 1.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2yes1"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nen2g"]
 shading_mode = 0
 albedo_color = Color(0.490196, 0.811765, 0.658824, 1)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5xxeg"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vcvff"]
 radius = 0.25
 height = 1.0
 
+[sub_resource type="Animation" id="Animation_ry2tm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("chicken:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ibeci"]
+resource_name = "Shred"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("chicken:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(2, 0.1, 2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0n7ar"]
+_data = {
+"RESET": SubResource("Animation_ry2tm"),
+"Shred": SubResource("Animation_ibeci")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vs663"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+shading_mode = 0
+albedo_texture = ExtResource("3_jmmmi")
+uv1_scale = Vector3(-1, -1, -1)
+texture_filter = 0
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_8t2sv"]
+material = SubResource("StandardMaterial3D_vs663")
+
 [node name="Mob" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1.00926)
 collision_layer = 3
+axis_lock_angular_x = true
+axis_lock_angular_z = true
 script = ExtResource("1_jekua")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_6707p")
-surface_material_override/0 = SubResource("StandardMaterial3D_2yes1")
+visible = false
+mesh = SubResource("CapsuleMesh_f12my")
+surface_material_override/0 = SubResource("StandardMaterial3D_nen2g")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_5xxeg")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.541018, 0)
+shape = SubResource("CapsuleShape3D_vcvff")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 neighbor_distance = 0.1
 max_speed = 10000.0
 
+[node name="chicken" parent="." instance=ExtResource("2_5c1kv")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.1, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0n7ar")
+}
+
+[node name="RunningFeather" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.752293, 0)
+amount = 4
+lifetime = 5.0
+lifetime_randomness = 1.0
+mesh = SubResource("QuadMesh_8t2sv")
+direction = Vector3(0, 0.25, 1)
+spread = 25.0
+gravity = Vector3(0, -2, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 3.0
+linear_accel_min = -1.5
+linear_accel_max = -0.5
+radial_accel_min = 1.0
+radial_accel_max = 2.0
+damping_max = 0.1
+angle_min = 160.0
+angle_max = 200.0
+scale_amount_min = 0.1
+scale_amount_max = 0.25
+
+[node name="ShredFeather" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.752293, 0)
+emitting = false
+amount = 32
+lifetime = 5.0
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 1.0
+mesh = SubResource("QuadMesh_8t2sv")
+direction = Vector3(0, 0.25, 1)
+spread = 90.0
+gravity = Vector3(0, -2, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 3.0
+angle_min = 160.0
+angle_max = 200.0
+scale_amount_min = 0.1
+scale_amount_max = 0.25
+
 [connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

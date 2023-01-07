@@ -18,6 +18,7 @@ var camera_vert_angle = 0
 var is_camera_moving = false
 
 @onready var reel_controller = $Reel
+@onready var wheel = $WheelHolder/Wheel
 
 func _ready(): 
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -61,6 +62,7 @@ func _physics_process(delta):
 				print("[Harvester] Collide on rotate")
 			else:
 				self.rotate_y(rotation_value)
+				self.wheel.rotate_y(rotation_value)
 		
 		# Move
 		var direction = (transform.basis * Vector3(0, 0, input_dir.y)).normalized() * delta

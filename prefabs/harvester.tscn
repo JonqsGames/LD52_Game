@@ -1,0 +1,135 @@
+[gd_scene load_steps=13 format=3 uid="uid://bgh6eg3caf2ht"]
+
+[ext_resource type="Script" path="res://scripts/HarvesterController.gd" id="1_wngk4"]
+[ext_resource type="Texture2D" uid="uid://dslt4jr73gm6s" path="res://img/ReelDebug.png" id="2_c7fai"]
+[ext_resource type="Script" path="res://scripts/ReelController.gd" id="3_tbixh"]
+[ext_resource type="PackedScene" uid="uid://b5xx3tex0wlk8" path="res://models/items/Wheel.gltf" id="4_eavlk"]
+[ext_resource type="PackedScene" uid="uid://dm7jevautcqwm" path="res://models/items/Lever.gltf" id="5_jsxlw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8dlyk"]
+size = Vector3(2, 0.5, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_up6wv"]
+shading_mode = 0
+albedo_color = Color(0.72549, 0.32549, 0.345098, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_4lvpc"]
+data = PackedVector3Array(-1, 0.25, 1, 1, 0.25, 1, -1, -0.25, 1, 1, 0.25, 1, 1, -0.25, 1, -1, -0.25, 1, 1, 0.25, -1, -1, 0.25, -1, 1, -0.25, -1, -1, 0.25, -1, -1, -0.25, -1, 1, -0.25, -1, 1, 0.25, 1, 1, 0.25, -1, 1, -0.25, 1, 1, 0.25, -1, 1, -0.25, -1, 1, -0.25, 1, -1, 0.25, -1, -1, 0.25, 1, -1, -0.25, -1, -1, 0.25, 1, -1, -0.25, 1, -1, -0.25, -1, 1, 0.25, 1, -1, 0.25, 1, 1, 0.25, -1, -1, 0.25, 1, -1, 0.25, -1, 1, 0.25, -1, -1, -0.25, 1, 1, -0.25, 1, -1, -0.25, -1, 1, -0.25, 1, 1, -0.25, -1, -1, -0.25, -1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_rpmeq"]
+top_radius = 0.25
+bottom_radius = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v44mp"]
+shading_mode = 0
+albedo_texture = ExtResource("2_c7fai")
+uv1_scale = Vector3(8, 8, 8)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_luekd"]
+radius = 0.25
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_w6631"]
+radius = 0.3
+
+[node name="Harvester" type="CharacterBody3D" node_paths=PackedStringArray("shop_camera_holder")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+collision_layer = 5
+script = ExtResource("1_wngk4")
+shop_camera_holder = NodePath("")
+
+[node name="Structure" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_8dlyk")
+surface_material_override/0 = SubResource("StandardMaterial3D_up6wv")
+
+[node name="StructureCollider" type="CollisionShape3D" parent="."]
+shape = SubResource("ConcavePolygonShape3D_4lvpc")
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="StructureCollider"]
+
+[node name="Cartel" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.739313, -0.482464)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Cartel"]
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Cartel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0942918, 0)
+operation = 2
+size = Vector3(0.920093, 0.603523, 1)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Cartel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0941377, 0)
+operation = 2
+size = Vector3(1.01593, 0.603704, 0.887691)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Cartel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.208578, 0)
+operation = 2
+size = Vector3(0.90053, 0.603704, 0.887691)
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.876795, -0.482464)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+current = true
+
+[node name="Reel" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.05, -1.5)
+mesh = SubResource("CylinderMesh_rpmeq")
+surface_material_override/0 = SubResource("StandardMaterial3D_v44mp")
+script = ExtResource("3_tbixh")
+
+[node name="ReelCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.05, -1.5)
+shape = SubResource("CylinderShape3D_luekd")
+
+[node name="ReelArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -1.5)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ReelArea"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CylinderShape3D_w6631")
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="ReelArea/CollisionShape3D"]
+
+[node name="WheelHolder" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.948346, -0.317238, 0, 0.317238, 0.948346, 0, 0.554125, -0.85204)
+
+[node name="Wheel" parent="WheelHolder" instance=ExtResource("4_eavlk")]
+transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, 0, 0, 0)
+
+[node name="PanelBoard" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0309707, -0.888378)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="PanelBoard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.341141, 0.0411851)
+size = Vector3(0.75, 0.3, 0.3)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="PanelBoard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.53913, 0)
+operation = 2
+size = Vector3(0.412795, 0.52085, 0.509934)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="PanelBoard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.53913, 0.187542)
+operation = 2
+size = Vector3(0.814473, 0.293532, 0.298844)
+
+[node name="Trianglehole" type="CSGPolygon3D" parent="PanelBoard"]
+transform = Transform3D(1.91069e-15, -4.37114e-08, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, -4.37114e-08, -0.377115, 0.855259, -0.353081)
+operation = 2
+polygon = PackedVector2Array(0, 0, 0, 1, 1, 1)
+depth = 0.8
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="PanelBoard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025593, 0.0275985)
+size = Vector3(0.0313125, 1, 0.0264123)
+
+[node name="LevelHolder" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.80315, -0.595776, 0, 0.595776, 0.80315, 0.295092, 0.389487, -0.748207)
+
+[node name="Lever" parent="LevelHolder" instance=ExtResource("5_jsxlw")]
+transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, 0, 0, 0)
+
+[connection signal="body_entered" from="ReelArea" to="." method="_on_reel_area_body_entered"]
