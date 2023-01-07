@@ -1,5 +1,7 @@
 extends Node3D
 
+const START_LIFE_AMOUNT = 100
+
 @onready var animation_player = $AnimationPlayer
 
 # Called when the node enters the scene tree for the first time.
@@ -13,6 +15,10 @@ func _ready():
 func _process(delta):
 	pass
 
+func attack(dmg : float):
+	GPlayerData.attack(dmg)
+	
+# CALLBACKS
 func _on_wave_end():
 	animation_player.play("OpenDoors")
 

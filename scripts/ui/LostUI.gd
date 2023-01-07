@@ -1,13 +1,13 @@
-extends MeshInstance3D
+extends CenterContainer
 
-const ROT_SPEED = 4.0
-
-var turning_speed = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	GPlayerData.game_end_lost.connect(self._on_player_lost)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	self.rotate_x(ROT_SPEED * delta * turning_speed)
+	pass
+
+func _on_player_lost():
+	self.visible = true

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqyrvcvd17t6f"]
+
+[ext_resource type="Script" path="res://scripts/ui/ResMarker.gd" id="1_ajuuk"]
+[ext_resource type="Texture2D" uid="uid://oomitu464wtd" path="res://img/Ressources/beak.png" id="2_twn6s"]
+[ext_resource type="FontFile" uid="uid://dbeg36bsn4pry" path="res://fonts/Kenney Pixel.ttf" id="3_pctpm"]
+
+[node name="ResMarker" type="HBoxContainer"]
+script = ExtResource("1_ajuuk")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_twn6s")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.301961, 0.239216, 0.184314, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_pctpm")
+theme_override_font_sizes/font_size = 24
+text = "1"

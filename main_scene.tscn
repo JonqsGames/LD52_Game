@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://c6o7wjr4magf2"]
+[gd_scene load_steps=38 format=3 uid="uid://c6o7wjr4magf2"]
 
 [ext_resource type="Script" path="res://scripts/HarvesterController.gd" id="1_ryffv"]
 [ext_resource type="Script" path="res://scripts/MobSpawner.gd" id="2_6yi77"]
@@ -9,6 +9,11 @@
 [ext_resource type="Script" path="res://scripts/BarnController.gd" id="5_sj2op"]
 [ext_resource type="Script" path="res://scripts/ui/MainUI.gd" id="5_vaww4"]
 [ext_resource type="Script" path="res://scripts/ui/ShopUI.gd" id="9_15l5t"]
+[ext_resource type="Script" path="res://scripts/ui/BarnLife.gd" id="9_it1p8"]
+[ext_resource type="Script" path="res://scripts/ui/LostUI.gd" id="10_71l4y"]
+[ext_resource type="FontFile" uid="uid://dbeg36bsn4pry" path="res://fonts/Kenney Pixel.ttf" id="11_0sl6r"]
+[ext_resource type="PackedScene" uid="uid://b58a14q51g2px" path="res://prefabs/ui/card.tscn" id="11_d05ed"]
+[ext_resource type="PackedScene" uid="uid://cqyrvcvd17t6f" path="res://prefabs/ui/res_marker.tscn" id="12_gnc2d"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_igivk"]
 vertices = PackedVector3Array(-26.25, 0.2, -34.5, -34.5, 0.2, -34.5, -34.5, 0.2, -24.25, -17.75, 0.2, -34.5, -26.25, 0.2, -34.5, -34.5, 0.2, -24.25, -17.75, 0.2, -34.5, -34.5, 0.2, -24.25, -34.5, 0.2, -13.75, -9.5, 0.2, -34.5, -34.5, 0.2, 7, -2.5, 0.2, 7, -2.25, 0.2, 6.25, -34.5, 0.2, -3.5, -34.5, 0.2, -3.5, -2.25, 0.2, 6.25, -0.75, 0.2, 6.25, -1, 0.2, -34.5, -9.5, 0.2, -34.5, -34.5, 0.2, -13.75, -0.75, 0.2, 6.25, 1, 0.2, 6.25, 1.25, 0.2, -34.5, -1, 0.2, -34.5, 34.5, 0.2, -24.25, 34.5, 0.2, -34.5, 26, 0.2, -34.5, 34.5, 0.2, -24.25, 26, 0.2, -34.5, 17.75, 0.2, -34.5, 34.5, 0.2, -13.75, 34.5, 0.2, -24.25, 17.75, 0.2, -34.5, 9.5, 0.2, -34.5, 2.5, 0.2, 6.25, 2.75, 0.2, 7, 34.5, 0.2, 7, 34.5, 0.2, -3.5, 1, 0.2, 6.25, 2.5, 0.2, 6.25, 34.5, 0.2, -3.5, 34.5, 0.2, -13.75, 9.5, 0.2, -34.5, 1.25, 0.2, -34.5, -34.5, 0.2, 27.5, -34.5, 0.2, 34.5, -26.25, 0.2, 34.5, -34.5, 0.2, 20.75, -34.5, 0.2, 27.5, -26.25, 0.2, 34.5, -34.5, 0.2, 20.75, -26.25, 0.2, 34.5, -17.75, 0.2, 34.5, -34.5, 0.2, 13.75, -17.75, 0.2, 34.5, -9.5, 0.2, 34.5, -2.5, 0.2, 7, -34.5, 0.2, 7, -34.5, 0.2, 13.75, -1, 0.2, 34.5, -0.75, 0.2, 7.75, -2.25, 0.2, 7.75, -1, 0.2, 34.5, -2.25, 0.2, 7.75, -2.5, 0.2, 7, -9.5, 0.2, 34.5, 26, 0.2, 34.5, 34.5, 0.2, 34.5, 34.5, 0.2, 27.5, 26, 0.2, 34.5, 34.5, 0.2, 27.5, 34.5, 0.2, 20.75, 17.75, 0.2, 34.5, 26, 0.2, 34.5, 34.5, 0.2, 20.75, 34.5, 0.2, 13.75, 2.75, 0.2, 7, 9.5, 0.2, 34.5, 17.75, 0.2, 34.5, 34.5, 0.2, 13.75, 34.5, 0.2, 7, 2.5, 0.2, 7.75, 1, 0.2, 7.75, 1.25, 0.2, 34.5, 2.75, 0.2, 7, 2.5, 0.2, 7.75, 1.25, 0.2, 34.5, 9.5, 0.2, 34.5, -1, 0.2, 34.5, 1.25, 0.2, 34.5, 1, 0.2, 7.75, -0.75, 0.2, 7.75)
@@ -217,29 +222,6 @@ target = NodePath("../Barn/MobTarget")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MobSpawner"]
 mesh = SubResource("BoxMesh_c32ix")
 
-[node name="MainUI" type="CenterContainer" parent="."]
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 23.0
-grow_horizontal = 2
-size_flags_vertical = 3
-script = ExtResource("5_vaww4")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MainUI"]
-layout_mode = 2
-
-[node name="Timer" type="Label" parent="MainUI/VBoxContainer"]
-layout_mode = 2
-text = "sdfsdfsdfsd"
-horizontal_alignment = 1
-script = ExtResource("3_awejf")
-
-[node name="HarvestCounter" type="Label" parent="MainUI/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-text = "asdfasdfasdf"
-script = ExtResource("4_i8em8")
-
 [node name="Barn" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -30)
 script = ExtResource("5_sj2op")
@@ -304,7 +286,36 @@ transform = Transform3D(-1, -6.18172e-08, 6.18172e-08, 0, 0.707107, 0.707107, -8
 transform = Transform3D(1, 0, 0, -7.10543e-15, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
 visible = false
 
-[node name="ShopUI" type="CenterContainer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MainUI" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 83.0
+grow_horizontal = 2
+size_flags_vertical = 3
+script = ExtResource("5_vaww4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainUI"]
+layout_mode = 2
+
+[node name="Timer" type="Label" parent="CanvasLayer/MainUI/VBoxContainer"]
+layout_mode = 2
+text = "sdfsdfsdfsd"
+horizontal_alignment = 1
+script = ExtResource("3_awejf")
+
+[node name="HarvestCounter" type="Label" parent="CanvasLayer/MainUI/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "asdfasdfasdf"
+script = ExtResource("4_i8em8")
+
+[node name="BarnLife" type="Label" parent="CanvasLayer/MainUI/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("9_it1p8")
+
+[node name="ShopUI" type="CenterContainer" parent="CanvasLayer"]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -313,9 +324,69 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("9_15l5t")
 
-[node name="Label" type="Label" parent="ShopUI"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ShopUI"]
 layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Label" type="Label" parent="CanvasLayer/ShopUI/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("11_0sl6r")
+theme_override_font_sizes/font_size = 32
 text = "SHOP"
+horizontal_alignment = 1
+
+[node name="RessourceContainer" type="HBoxContainer" parent="CanvasLayer/ShopUI/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ResMarker" parent="CanvasLayer/ShopUI/VBoxContainer/RessourceContainer" instance=ExtResource("12_gnc2d")]
+layout_mode = 2
+
+[node name="Cards" type="HBoxContainer" parent="CanvasLayer/ShopUI/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Card" parent="CanvasLayer/ShopUI/VBoxContainer/Cards" instance=ExtResource("11_d05ed")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../Card4")
+focus_neighbor_right = NodePath("../Card2")
+focus_next = NodePath("../Card2")
+focus_previous = NodePath("../Card4")
+
+[node name="Card2" parent="CanvasLayer/ShopUI/VBoxContainer/Cards" instance=ExtResource("11_d05ed")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../Card")
+focus_neighbor_right = NodePath("../Card3")
+focus_next = NodePath("../Card3")
+focus_previous = NodePath("../Card")
+
+[node name="Card3" parent="CanvasLayer/ShopUI/VBoxContainer/Cards" instance=ExtResource("11_d05ed")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../Card2")
+focus_neighbor_right = NodePath("../Card4")
+focus_next = NodePath("../Card4")
+focus_previous = NodePath("../Card2")
+
+[node name="Card4" parent="CanvasLayer/ShopUI/VBoxContainer/Cards" instance=ExtResource("11_d05ed")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../Card3")
+focus_neighbor_right = NodePath("../Card")
+focus_next = NodePath("../Card")
+focus_previous = NodePath("../Card3")
+
+[node name="LostUI" type="CenterContainer" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_71l4y")
+
+[node name="Label" type="Label" parent="CanvasLayer/LostUI"]
+layout_mode = 2
+text = "YOU LOST"
 
 [connection signal="body_entered" from="Harvester/ReelArea" to="Harvester" method="_on_reel_area_body_entered"]
 [connection signal="body_entered" from="Barn/Area3D" to="Barn" method="_on_area_3d_body_entered"]

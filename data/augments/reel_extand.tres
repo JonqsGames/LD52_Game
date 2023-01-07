@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bqa5c04umdfnk"]
+
+[ext_resource type="Script" path="res://data/augment.gd" id="1_01dls"]
+[ext_resource type="Texture2D" uid="uid://ltpeietcofkw" path="res://img/Augments/BiggerReel.png" id="1_niau4"]
+
+[resource]
+script = ExtResource("1_01dls")
+beak_cost = 5
+augment_name = "Reel Extent"
+image = ExtResource("1_niau4")
+description = "[center]Extand the [color=#b95358]reel[/color] horizontally[/center]"

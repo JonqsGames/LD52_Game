@@ -9,12 +9,18 @@
 config_version=5
 
 _global_script_classes=[{
+"base": "Resource",
+"class": &"Augment",
+"language": &"GDScript",
+"path": "res://data/augment.gd"
+}, {
 "base": "CharacterBody3D",
 "class": &"MobController",
 "language": &"GDScript",
 "path": "res://scripts/MobController.gd"
 }]
 _global_script_class_icons={
+"Augment": "",
 "MobController": ""
 }
 
@@ -28,6 +34,11 @@ config/icon="res://icon.svg"
 [autoload]
 
 GPlayerData="*res://scripts/g_player_data.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=800
 
 [input]
 
