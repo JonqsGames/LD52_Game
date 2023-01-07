@@ -1,6 +1,6 @@
 extends Node
 # GLOBAL
-const WAVE_DURATION = 10 #30 # seconds
+const WAVE_DURATION = 30 # seconds
 const SHOP_DURATION = 30 #60 # seconds
 
 const SPEED_UP_MULTIPLICATOR = 12.0
@@ -23,7 +23,7 @@ var life = START_LIFE_AMOUNT
 var is_in_shop = false
 
 var stats = {
-	"reel_length" : 1
+	"reel_length" : 0.75
 }
 
 signal game_wave_done()
@@ -86,7 +86,7 @@ func attack(dmg : float):
 func buy_augment(augment_data : Augment):
 	self.harvested_mob -= augment_data.beak_cost
 	print("[PlayerData] Augment buyed")
-	self.stats["reel_length"] += 1
+	self.stats["reel_length"] += 0.1
 	self.game_augment_buyed.emit(augment_data)
 
 func mob_harvested():

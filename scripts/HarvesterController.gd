@@ -1,12 +1,15 @@
 extends CharacterBody3D
 
 const SPEED = 400.0
-const DECEL_SPEED = 200.0
+const DECEL_SPEED = 100.0
 const ROTATION_SPEED = 3.0
 const JUMP_VELOCITY = 4.5
 const MOUSE_SENSITIVITY = 0.001
 const CAMERA_MAX_X_ROT = 1.0
 const CAMERA_TWEEN_DURATION = 0.6
+# SPEED MULT
+const SPEED_MULT_MAX = 2.0
+const SPEED_MULT_INC = 0.02
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -16,6 +19,8 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var camera_vert_angle = 0
 @export var shop_camera_holder : Node3D
 var is_camera_moving = false
+
+var speed_mult = 1.0
 
 @onready var reel_controller = $Reel
 @onready var wheel = $WheelHolder/Wheel
@@ -67,14 +72,22 @@ func _physics_process(delta):
 		# Move
 		var direction = (transform.basis * Vector3(0, 0, input_dir.y)).normalized() * delta
 		if direction:
-			velocity.x = direction.x * SPEED
-			velocity.z = direction.z * SPEED
+			velocity.x = direction.x * SPEED * speed_mult
+			velocity.z = direction.z * SPEED * speed_mult
 		else:
 			velocity.x = move_toward(velocity.x, 0, delta * DECEL_SPEED)
 			velocity.z = move_toward(velocity.z, 0, delta * DECEL_SPEED)
 
 		move_and_slide()
 		reel_controller.turning_speed = input_dir.y
+		# Increment speed mult
+		if abs(input_dir.y) > 0.0:
+			speed_mult += abs(input_dir.y) * SPEED_MULT_INC
+		else:
+			if speed_mult > 1.0:
+				speed_mult -= SPEED_MULT_INC
+			
+		speed_mult = clamp(speed_mult, 1.0, SPEED_MULT_MAX)
 	
 
 func _on_reel_area_body_entered(body):

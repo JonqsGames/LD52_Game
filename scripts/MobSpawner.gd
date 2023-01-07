@@ -1,6 +1,6 @@
 extends Node3D
 
-const SPAWN_DELTA = 1.5
+const SPAWN_DELTA = 0.75
 
 @export var target : Node3D
 
@@ -23,5 +23,5 @@ func produce_mob():
 	new_mob.set_target(self.target)
 	self.add_child(new_mob)
 	new_mob.transform = Transform3D.IDENTITY
-	new_mob.position.x += randf_range(-1.0,1.0)
+	new_mob.position.x += randf_range(-50.0,50.0)
 	new_mob.position.z += randf_range(-0.5,0.5)
