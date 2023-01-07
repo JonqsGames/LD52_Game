@@ -1,12 +1,11 @@
 extends Node3D
 
-const SPAWN_DELTA = 3.0
+const SPAWN_DELTA = 1.5
 
 @export var target : Node3D
 
 var last_spawn = -1
 var MobPrefab = preload("res://prefabs/mob.tscn")
-
 
 func _ready():
 	pass # Replace with function body.
@@ -24,3 +23,5 @@ func produce_mob():
 	new_mob.set_target(self.target)
 	self.add_child(new_mob)
 	new_mob.transform = Transform3D.IDENTITY
+	new_mob.position.x += randf_range(-1.0,1.0)
+	new_mob.position.z += randf_range(-0.5,0.5)
