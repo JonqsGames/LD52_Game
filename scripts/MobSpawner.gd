@@ -23,5 +23,5 @@ func produce_mob():
 	new_mob.set_target(self.target)
 	self.add_child(new_mob)
 	new_mob.transform = Transform3D.IDENTITY
-	new_mob.position.x += randf_range(-50.0,50.0)
+	new_mob.position.x += randf_range(-25.0,25.0)
 	new_mob.position.z += randf_range(-0.5,0.5)

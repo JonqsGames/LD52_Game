@@ -9,7 +9,7 @@ enum MobStatus {
 
 const SPEED = 200.0
 const JUMP_VELOCITY = 4.5
-const ATTACK_SPAN = 0.5 # seconds
+const ATTACK_SPAN = 2.0 # seconds
 const ATTACK_DMG = 1
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.

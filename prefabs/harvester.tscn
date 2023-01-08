@@ -1,7 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://bgh6eg3caf2ht"]
+[gd_scene load_steps=21 format=3 uid="uid://bgh6eg3caf2ht"]
 
 [ext_resource type="Script" path="res://scripts/HarvesterController.gd" id="1_wngk4"]
+[ext_resource type="Texture2D" uid="uid://b020aco5aibee" path="res://models/items.png" id="2_upi5h"]
+[ext_resource type="Script" path="res://scripts/SpeedPointer.gd" id="3_dslmc"]
 [ext_resource type="Script" path="res://scripts/ReelController.gd" id="3_tbixh"]
+[ext_resource type="Script" path="res://scripts/WavePointer.gd" id="4_5aykd"]
 [ext_resource type="PackedScene" uid="uid://b5xx3tex0wlk8" path="res://models/items/Wheel.gltf" id="4_eavlk"]
 [ext_resource type="PackedScene" uid="uid://dm7jevautcqwm" path="res://models/items/Lever.gltf" id="5_jsxlw"]
 [ext_resource type="PackedScene" uid="uid://lt6cwt6tkj1u" path="res://models/items/Reel.gltf" id="6_5h8i5"]
@@ -19,6 +22,18 @@ albedo_color = Color(0.72549, 0.32549, 0.345098, 1)
 radius = 1.03498
 height = 3.52415
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6113"]
+atlas = ExtResource("2_upi5h")
+region = Rect2(176, 64, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4sul6"]
+atlas = ExtResource("2_upi5h")
+region = Rect2(160, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ga6ni"]
+atlas = ExtResource("2_upi5h")
+region = Rect2(112, 64, 48, 48)
+
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_luekd"]
 height = 4.0
 radius = 0.4
@@ -26,6 +41,13 @@ radius = 0.4
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_w6631"]
 height = 4.0
 radius = 0.4
+
+[sub_resource type="QuadMesh" id="QuadMesh_dmosm"]
+size = Vector2(0.25, 0.25)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8cfb4"]
+resource_local_to_scene = true
+shading_mode = 0
 
 [node name="Harvester" type="CharacterBody3D" node_paths=PackedStringArray("shop_camera_holder")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
@@ -63,32 +85,66 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.208578, 0)
 operation = 2
 size = Vector3(0.90053, 0.603704, 0.887691)
 
-[node name="PanelBoard" type="CSGCombiner3D" parent="."]
+[node name="PanelBoard" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.363767, -0.564566)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="PanelBoard"]
+[node name="PanelBoard" type="CSGCombiner3D" parent="PanelBoard"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="PanelBoard/PanelBoard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.341141, 0.0411851)
 size = Vector3(0.75, 0.3, 0.3)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="PanelBoard"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="PanelBoard/PanelBoard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.53913, 0)
 operation = 2
 size = Vector3(0.412795, 0.52085, 0.509934)
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="PanelBoard"]
+[node name="CSGBox3D3" type="CSGBox3D" parent="PanelBoard/PanelBoard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.53913, 0.187542)
 operation = 2
 size = Vector3(0.814473, 0.293532, 0.298844)
 
-[node name="Trianglehole" type="CSGPolygon3D" parent="PanelBoard"]
+[node name="Trianglehole" type="CSGPolygon3D" parent="PanelBoard/PanelBoard"]
 transform = Transform3D(1.91069e-15, -4.37114e-08, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, -4.37114e-08, -0.377115, 0.855259, -0.353081)
 operation = 2
 polygon = PackedVector2Array(0, 0, 0, 1, 1, 1)
 depth = 0.8
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="PanelBoard"]
+[node name="CSGBox3D4" type="CSGBox3D" parent="PanelBoard/PanelBoard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025593, 0.0275985)
 size = Vector3(0.0313125, 1, 0.0264123)
+
+[node name="SpeedMeter" type="Node3D" parent="PanelBoard"]
+transform = Transform3D(0.15, 0, 0, 0, 0.103526, 0.108546, 0, -0.108546, 0.103526, -0.274764, 0.488367, 0.0253998)
+
+[node name="Sprite3D" type="Sprite3D" parent="PanelBoard/SpeedMeter"]
+transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0, 0)
+texture_filter = 0
+texture = SubResource("AtlasTexture_r6113")
+
+[node name="SpeedPointer" type="Sprite3D" parent="PanelBoard/SpeedMeter"]
+transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0.00768518, 0.0100064)
+offset = Vector2(0, 8)
+texture_filter = 0
+render_priority = 1
+texture = SubResource("AtlasTexture_4sul6")
+script = ExtResource("3_dslmc")
+
+[node name="WaveMeter" type="Node3D" parent="PanelBoard"]
+transform = Transform3D(0.15, 0, 0, 0, 0.134223, 0.0669648, 0, -0.0669648, 0.134223, 0.299527, 0.502873, 0.0411226)
+
+[node name="Sprite3D" type="Sprite3D" parent="PanelBoard/WaveMeter"]
+transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, 0, 0, 0)
+texture_filter = 0
+texture = SubResource("AtlasTexture_ga6ni")
+
+[node name="WavePointer" type="Sprite3D" parent="PanelBoard/WaveMeter"]
+transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0.00768518, 0.0100064)
+offset = Vector2(0, 8)
+texture_filter = 0
+render_priority = 1
+texture = SubResource("AtlasTexture_4sul6")
+script = ExtResource("4_5aykd")
 
 [node name="WheelHolder" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.948346, -0.317238, 0, 0.317238, 0.948346, 0, 0.886921, -0.528228)
@@ -103,7 +159,7 @@ transform = Transform3D(1, 0, 0, 0, 0.80315, -0.595776, 0, 0.595776, 0.80315, 0.
 transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="CameraPivot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29498, -0.158652)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -0.159)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 current = true
@@ -305,5 +361,29 @@ script = ExtResource("7_q2b77")
 [node name="Blade5" parent="Reel/BladeRow8" instance=ExtResource("6_mrnrk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.46294, 0, 0)
 script = ExtResource("7_q2b77")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.955957, 0.293506, 0, -0.293506, 0.955957, 0, 1.79804, -0.736179)
+light_color = Color(0.968627, 0.964706, 0.858824, 1)
+shadow_enabled = true
+spot_range = 15.0
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+transform = Transform3D(0.691816, 0, -0.722074, 0, 1, 0, 0.722074, 0, 0.691816, 0.427188, 1.34047, -0.550491)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, 0, -0.0490907)
+size = Vector3(0.28, 0.28, 0.05)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.96046e-08, 0, -0.0336278)
+operation = 2
+size = Vector3(0.25, 0.25, 0.05)
+
+[node name="SecurityScreen" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.691816, 0, -0.722074, 0, 1, 0, 0.722074, 0, 0.691816, 0.456099, 1.34047, -0.578191)
+visible = false
+mesh = SubResource("QuadMesh_dmosm")
+surface_material_override/0 = SubResource("StandardMaterial3D_8cfb4")
 
 [connection signal="body_entered" from="ReelArea" to="." method="_on_reel_area_body_entered"]

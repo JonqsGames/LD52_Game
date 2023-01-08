@@ -9,3 +9,4 @@ beak_cost = 5
 augment_name = "Reel Extent"
 image = ExtResource("1_niau4")
 description = "[center]Extand the [color=#b95358]reel[/color] horizontally[/center]"
+type = 0

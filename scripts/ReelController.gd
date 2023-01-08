@@ -1,6 +1,6 @@
 extends Node3D
 
-const ROT_SPEED = 4.0
+const ROT_SPEED = 0.5
 
 var turning_speed = 0.0
 var reel_size = 0.0

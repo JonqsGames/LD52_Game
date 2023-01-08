@@ -29,6 +29,7 @@ func _on_player_leave_shop():
 	animation_player.play("OpenDoors")
 
 func _on_area_3d_body_entered(body):
-	animation_player.play_backwards("OpenDoors")
-	GPlayerData.activate_shop()
+	if !GPlayerData.is_in_shop:
+		animation_player.play_backwards("OpenDoors")
+		GPlayerData.activate_shop()
 

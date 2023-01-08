@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://caqparrnqbxgs"]
+
+[ext_resource type="Texture2D" uid="uid://wk0w77yrbf52" path="res://img/Augments/speed.png" id="1_1uku7"]
+[ext_resource type="Script" path="res://data/augment.gd" id="1_q6jv5"]
+
+[resource]
+script = ExtResource("1_q6jv5")
+beak_cost = 3
+augment_name = "Speed Boost"
+image = ExtResource("1_1uku7")
+description = "[center]Increase [color=#7fa533]speed[/color] of your harvester[/center]"
+type = 1

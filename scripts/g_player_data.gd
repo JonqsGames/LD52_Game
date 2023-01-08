@@ -21,9 +21,11 @@ var status : GameStatus = GameStatus.SHOP
 
 var life = START_LIFE_AMOUNT
 var is_in_shop = false
+var harvester_speed = 0
 
 var stats = {
-	"reel_length" : 0.75
+	"reel_length" : 0.75,
+	"speed_mult" : 1.0
 }
 
 signal game_wave_done()
@@ -86,7 +88,13 @@ func attack(dmg : float):
 func buy_augment(augment_data : Augment):
 	self.harvested_mob -= augment_data.beak_cost
 	print("[PlayerData] Augment buyed")
-	self.stats["reel_length"] += 0.1
+	match augment_data.type:
+		Augment.AugmentType.ReelExtend:
+			self.stats["reel_length"] += 0.1
+		Augment.AugmentType.SpeedBoost:
+			self.stats["speed_mult"] += 0.1
+		Augment.AugmentType.Repair:
+			self.life = START_LIFE_AMOUNT
 	self.game_augment_buyed.emit(augment_data)
 
 func mob_harvested():

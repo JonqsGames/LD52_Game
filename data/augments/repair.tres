@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cfbodenf0xbey"]
+
+[ext_resource type="Script" path="res://data/augment.gd" id="1_2pm0b"]
+[ext_resource type="Texture2D" uid="uid://cl73lnqx2kji0" path="res://img/Augments/Repair.png" id="1_ebpce"]
+
+[resource]
+script = ExtResource("1_2pm0b")
+beak_cost = 5
+augment_name = "Repair Barn"
+image = ExtResource("1_ebpce")
+description = "[center]Fully [color=#7fa533]repair[/color] the barn[/center]"
+type = 2

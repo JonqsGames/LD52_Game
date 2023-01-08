@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6qbvjie83pn4"
-path.s3tc="res://.godot/imported/decor.png-12ebde6add81bd6eb061a7b31a55562a.s3tc.ctex"
-path.etc2="res://.godot/imported/decor.png-12ebde6add81bd6eb061a7b31a55562a.etc2.ctex"
+uid="uid://bngwgymvc2at2"
+path.s3tc="res://.godot/imported/tex_barn__2.png-7992f45531191b65d30e52f9175f8332.s3tc.ctex"
+path.etc2="res://.godot/imported/tex_barn__2.png-7992f45531191b65d30e52f9175f8332.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc", "etc2"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://models/decor.png"
-dest_files=["res://.godot/imported/decor.png-12ebde6add81bd6eb061a7b31a55562a.s3tc.ctex", "res://.godot/imported/decor.png-12ebde6add81bd6eb061a7b31a55562a.etc2.ctex"]
+source_file="res://models/tex_barn__2.png"
+dest_files=["res://.godot/imported/tex_barn__2.png-7992f45531191b65d30e52f9175f8332.s3tc.ctex", "res://.godot/imported/tex_barn__2.png-7992f45531191b65d30e52f9175f8332.etc2.ctex"]
 
 [params]
 
