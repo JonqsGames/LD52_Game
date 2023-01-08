@@ -17,7 +17,10 @@ var timer = 0.0
 var time_multiplicator = 1.0
 # Wave data
 var harvested_mob = 0
+var harvested_mob_total = 0
 var status : GameStatus = GameStatus.SHOP
+
+var wave_counter = 0
 
 var life = START_LIFE_AMOUNT
 var is_in_shop = false
@@ -27,6 +30,7 @@ var stats = {
 	"reel_length" : 0.75,
 	"speed_mult" : 1.0
 }
+var bonus_buyed = {}
 
 signal game_wave_done()
 signal game_wave_start()
@@ -49,7 +53,6 @@ func _process(delta):
 			self.leave_shop()
 	else:
 		if Input.is_action_pressed("speed_up"):
-			print("[PlayerData] SPEED UP")
 			self.time_multiplicator = SPEED_UP_MULTIPLICATOR
 		else:
 			self.time_multiplicator = 1.0
@@ -59,9 +62,10 @@ func _process(delta):
 			if timer <= 0:
 				self.end_wave()
 		GameStatus.SHOP:
-			timer -= delta * self.time_multiplicator
-			if timer <= 0:
-				self.start_wave()
+			if !is_in_shop:
+				timer -= delta * self.time_multiplicator
+				if timer <= 0:
+					self.start_wave()
 	
 func start_wave():
 	harvested_mob = 0
@@ -75,18 +79,25 @@ func start_shopping():
 
 func end_wave():
 	game_wave_done.emit()
+	wave_counter += 1
 	self.start_shopping()
 	
 func is_wave_running():
 	return self.status == GameStatus.WAVE
-
+	
+func is_locked():
+	return self.status == GameStatus.LOST or self.is_in_shop
+	
 func attack(dmg : float):
 	self.life -= dmg
 	if self.life <= 0:
 		self.barn_door_destroyed()
 
 func buy_augment(augment_data : Augment):
-	self.harvested_mob -= augment_data.beak_cost
+	var price_multiplicator = 1.0
+	if self.bonus_buyed.has(augment_data.augment_name):
+		price_multiplicator += self.bonus_buyed[augment_data.augment_name]
+	self.harvested_mob -= augment_data.beak_cost * price_multiplicator
 	print("[PlayerData] Augment buyed")
 	match augment_data.type:
 		Augment.AugmentType.ReelExtend:
@@ -95,11 +106,16 @@ func buy_augment(augment_data : Augment):
 			self.stats["speed_mult"] += 0.1
 		Augment.AugmentType.Repair:
 			self.life = START_LIFE_AMOUNT
+	if bonus_buyed.has(augment_data.augment_name):
+		bonus_buyed[augment_data.augment_name] += 1
+	else:
+		bonus_buyed[augment_data.augment_name] = 1
 	self.game_augment_buyed.emit(augment_data)
 
 func mob_harvested():
 	print("[PlayerData] Harvested mob")
 	self.harvested_mob += 1
+	self.harvested_mob_total += 1
 	
 func activate_shop():
 	print("[PlayerData] Shop entered")
@@ -112,7 +128,27 @@ func leave_shop():
 	self.game_leave_shop.emit()
 
 func barn_door_destroyed():
-	print("[PlayerData] You lost")
-	self.status = GameStatus.LOST
-	self.game_end_lost.emit()
-	
+	if self.status != GameStatus.LOST:
+		print("[PlayerData] You lost")
+		self.status = GameStatus.LOST
+		self.game_end_lost.emit()
+
+func reset_data():
+	self.wave_counter = 0
+	self.harvested_mob = 0
+	self.harvested_mob_total = 0
+	self.stats = {
+		"reel_length" : 0.75,
+		"speed_mult" : 1.0
+	}
+	self.bonus_buyed = {}
+	self.life = START_LIFE_AMOUNT
+
+func restart_game():
+	self.reset_data()
+	get_tree().reload_current_scene()
+	self.start_shopping()
+
+func back_to_main_menu():
+	self.reset_data()
+	print(get_tree().change_scene_to_file("res://main_menu.tscn"))

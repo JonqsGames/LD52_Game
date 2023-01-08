@@ -12,10 +12,13 @@ func _process(delta):
 	pass
 
 func _on_player_enter_shop():
-	self.visible = false
+#	self.visible = false
+	pass
 
 func _on_player_leave_shop():
-	self.visible = true
+#	self.visible = true
+	pass
 
 func _on_player_lost():
-	self.visible = false
+#	self.visible = false
+	pass

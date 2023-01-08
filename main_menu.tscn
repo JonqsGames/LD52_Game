@@ -1,0 +1,81 @@
+[gd_scene load_steps=6 format=3 uid="uid://pvedbj27ro14"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_8amfy"]
+[ext_resource type="FontFile" uid="uid://dbeg36bsn4pry" path="res://fonts/Kenney Pixel.ttf" id="1_ro78q"]
+
+[sub_resource type="Animation" id="Animation_mduco"]
+resource_name = "Pulse"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/HBoxContainer/Start:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.498039, 0.647059, 0.2, 1), Color(0.192157, 0.392157, 0.211765, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_584a0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/HBoxContainer/Start:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5agr3"]
+_data = {
+"Pulse": SubResource("Animation_mduco"),
+"RESET": SubResource("Animation_584a0")
+}
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_8amfy")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(1280, 800)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 64
+
+[node name="Label" type="Label" parent="CenterContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ro78q")
+theme_override_font_sizes/font_size = 128
+text = "Night of the Zombie Chicken"
+horizontal_alignment = 1
+
+[node name="Start" type="Label" parent="CenterContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313578, 0.493341, 0.207095, 1)
+theme_override_fonts/font = ExtResource("1_ro78q")
+theme_override_font_sizes/font_size = 64
+text = "Press space to start
+"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Pulse"
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_5agr3")
+}

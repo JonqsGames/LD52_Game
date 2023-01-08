@@ -8,8 +8,9 @@ enum MobStatus {
 }
 
 const SPEED = 200.0
+const SPEED_PER_WAVE = 50.0
 const JUMP_VELOCITY = 4.5
-const ATTACK_SPAN = 2.0 # seconds
+const ATTACK_SPAN = 0.1 # seconds
 const ATTACK_DMG = 1
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -20,12 +21,19 @@ var status : MobStatus = MobStatus.IDLE
 var safe_velocity : Vector3 = Vector3(0,0,0)
 
 var last_attack_timer = 0
+var next_scream_timer = 0
 
 var is_dead = false
+
+var audio_list = [
+	load("res://audio/chicken1.wav"),
+	load("res://audio/chicken2.wav")
+]
 
 @onready var nav_agent = $NavigationAgent3D
 @onready var animation_player = $AnimationPlayer
 @onready var shred_particles = $ShredFeather
+@onready var scream_audio = $ScreamAudioA
 
 func _ready():
 	if target != null:
@@ -35,6 +43,8 @@ func _ready():
 		push_warning("[Mob] Has no target")
 	# Connect to global events
 	GPlayerData.game_wave_done.connect(self._on_wave_end)
+	GPlayerData.game_end_lost.connect(self._on_wave_end)
+	next_scream_timer = randf_range(1.0,8.0)
 
 func _process(delta):
 	# Attack
@@ -42,12 +52,21 @@ func _process(delta):
 		MobStatus.ATTACKING:
 			self.last_attack_timer += delta
 			if self.last_attack_timer > ATTACK_SPAN:
+				self.last_attack_timer = 0
 				# ATTACK
 				self.target.get_parent().attack(ATTACK_DMG)
 		MobStatus.WALKING:
-			var velocity_to_target = global_position.direction_to(nav_agent.get_next_location()) * SPEED * delta
-		#	nav_agent.set_velocity(velocity_to_target)
+			var calc_speed = SPEED + SPEED_PER_WAVE * GPlayerData.wave_counter
+			var velocity_to_target = global_position.direction_to(nav_agent.get_next_location()) * calc_speed * delta
 			safe_velocity = velocity_to_target
+			next_scream_timer -= delta
+	if next_scream_timer <= 0:
+#		print("[Mob] Scream")
+		next_scream_timer = randf_range(3.5,12.0)
+		var sound_index = randi_range(0,self.audio_list.size()-1)
+		self.scream_audio.stream = audio_list[sound_index]
+		self.scream_audio.play()
+		
 
 func _physics_process(delta):
 	if self.status == MobStatus.WALKING:
@@ -84,6 +103,10 @@ func harvest():
 	animation_player.play("Shred")
 	shred_particles.restart()
 	self.status = MobStatus.IDLE
+	var tween = create_tween()
+	tween.tween_property(self.scream_audio, "pitch_scale", 2.0, 2.5)
+	self.scream_audio.stream = audio_list[1]
+	self.scream_audio.play()
 #	self.queue_free()
 
 # CALLBACKS

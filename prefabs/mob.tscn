@@ -1,22 +1,23 @@
-[gd_scene load_steps=12 format=3 uid="uid://m47fldcaklxo"]
+[gd_scene load_steps=13 format=3 uid="uid://m47fldcaklxo"]
 
 [ext_resource type="Script" path="res://scripts/MobController.gd" id="1_jekua"]
 [ext_resource type="PackedScene" uid="uid://5g36qi0bhnkf" path="res://models/chicken.gltf" id="2_5c1kv"]
 [ext_resource type="Texture2D" uid="uid://cgtttis0vmqj8" path="res://img/feather.png" id="3_jmmmi"]
+[ext_resource type="AudioStream" uid="uid://cd0d5nlyc5lwp" path="res://audio/chicken2.wav" id="4_k2ke0"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_i6twi"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jo2p6"]
 radius = 0.25
 height = 1.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sne1y"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_knl1q"]
 shading_mode = 0
 albedo_color = Color(0.490196, 0.811765, 0.658824, 1)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wvmnq"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ejqjc"]
 radius = 0.25
 height = 1.0
 
-[sub_resource type="Animation" id="Animation_y005g"]
+[sub_resource type="Animation" id="Animation_ynlim"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -31,7 +32,7 @@ tracks/0/keys = {
 "values": [Vector3(1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_5muok"]
+[sub_resource type="Animation" id="Animation_1tjp7"]
 resource_name = "Shred"
 length = 4.0
 tracks/0/type = "value"
@@ -47,13 +48,13 @@ tracks/0/keys = {
 "values": [Vector3(1, 1, 1), Vector3(2, 0.1, 2)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_e8sts"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_clusj"]
 _data = {
-"RESET": SubResource("Animation_y005g"),
-"Shred": SubResource("Animation_5muok")
+"RESET": SubResource("Animation_ynlim"),
+"Shred": SubResource("Animation_1tjp7")
 }
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_olw3f"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jkw4b"]
 transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
@@ -66,11 +67,11 @@ particles_anim_h_frames = 1
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="QuadMesh" id="QuadMesh_siwki"]
-material = SubResource("StandardMaterial3D_olw3f")
+[sub_resource type="QuadMesh" id="QuadMesh_jafnm"]
+material = SubResource("StandardMaterial3D_jkw4b")
 
 [node name="Mob" type="CharacterBody3D"]
-collision_layer = 3
+collision_layer = 2
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 script = ExtResource("1_jekua")
@@ -78,12 +79,12 @@ script = ExtResource("1_jekua")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 visible = false
-mesh = SubResource("CapsuleMesh_i6twi")
-surface_material_override/0 = SubResource("StandardMaterial3D_sne1y")
+mesh = SubResource("CapsuleMesh_jo2p6")
+surface_material_override/0 = SubResource("StandardMaterial3D_knl1q")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.541018, 0)
-shape = SubResource("CapsuleShape3D_wvmnq")
+shape = SubResource("CapsuleShape3D_ejqjc")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 neighbor_distance = 0.1
@@ -94,7 +95,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_e8sts")
+"": SubResource("AnimationLibrary_clusj")
 }
 
 [node name="RunningFeather" type="CPUParticles3D" parent="."]
@@ -102,7 +103,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.752293, 0)
 amount = 4
 lifetime = 5.0
 lifetime_randomness = 1.0
-mesh = SubResource("QuadMesh_siwki")
+mesh = SubResource("QuadMesh_jafnm")
 direction = Vector3(0, 0.25, 1)
 spread = 25.0
 gravity = Vector3(0, -2, 0)
@@ -126,7 +127,7 @@ lifetime = 5.0
 one_shot = true
 explosiveness = 1.0
 lifetime_randomness = 1.0
-mesh = SubResource("QuadMesh_siwki")
+mesh = SubResource("QuadMesh_jafnm")
 direction = Vector3(0, 0.25, 1)
 spread = 90.0
 gravity = Vector3(0, -2, 0)
@@ -136,6 +137,10 @@ angle_min = 160.0
 angle_max = 200.0
 scale_amount_min = 0.1
 scale_amount_max = 0.25
+
+[node name="ScreamAudioA" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_k2ke0")
+pitch_scale = 1.52
 
 [connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]

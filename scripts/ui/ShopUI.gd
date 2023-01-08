@@ -21,7 +21,7 @@ func _ready():
 	GPlayerData.game_enter_shop.connect(self._on_player_enter_shop)
 	GPlayerData.game_leave_shop.connect(self._on_player_leave_shop)
 	GPlayerData.game_augment_buyed.connect(self._on_player_buy_augment)
-	card_list[0].grab_focus
+	card_list[0].grab_focus()
 	self.generate_shop()
 	random_gen.randomize()
 
@@ -31,11 +31,8 @@ func _process(delta):
 # CALLBACKS
 func _on_player_buy_augment(augment_data : Augment):
 	beak_counter.set_ressource_count(GPlayerData.harvested_mob)
-	
-	for card in card_list:
-		if card.has_focus():
-			card.set_augment_data(res_list[random_gen.randi_range(0,res_list.size()-1)])
-			card.grab_focus()
+	self.generate_shop()
+	card_list[0].grab_focus()
 	
 func _on_player_enter_shop():
 	self.visible = true

@@ -7,11 +7,6 @@ const JUMP_VELOCITY = 4.5
 const MOUSE_SENSITIVITY = 0.001
 const CAMERA_MAX_X_ROT = 1.0
 const CAMERA_TWEEN_DURATION = 0.6
-# SPEED MULT
-const SPEED_MULT_MAX = 2.0
-const SPEED_MULT_INC = 0.02
-
-
 
 @onready var camera = $CameraPivot/Camera3D
 @onready var camera_pivot = $CameraPivot
@@ -19,8 +14,6 @@ var camera_vert_angle = 0
 @export var shop_camera_holder : Node3D
 @export var security_camera_texture : ViewportTexture
 var is_camera_moving = false
-
-var speed_mult = 1.0
 
 @onready var reel_controller = $Reel
 @onready var wheel = $WheelHolder/Wheel
@@ -49,7 +42,7 @@ func _ready():
 	$SecurityScreen.set_surface_override_material(0,mat)
 
 func _input(event):
-	if !GPlayerData.is_in_shop:
+	if !GPlayerData.is_locked():
 		if event is InputEventMouseMotion:
 			var mouse_motion = -event.relative
 			# camera control
@@ -58,8 +51,7 @@ func _input(event):
 			self.camera.rotation.x = clamp(self.camera.rotation.x, -CAMERA_MAX_X_ROT, CAMERA_MAX_X_ROT)
 
 func _physics_process(delta):
-	if GPlayerData.is_in_shop:
-		# Move camera to
+	if GPlayerData.is_locked():
 		pass
 	else:
 		# Add the gravity.
@@ -71,7 +63,7 @@ func _physics_process(delta):
 			steer_angle = input_dir.x * deg_to_rad(steerring_max)
 			accel = Vector3.ZERO
 			if input_dir.y < 0:
-				accel = -transform.basis.z * power
+				accel = -transform.basis.z * power * GPlayerData.stats["speed_mult"]
 			elif input_dir.y > 0:
 				accel = -transform.basis.z * brake
 			apply_friction(delta)
@@ -81,45 +73,7 @@ func _physics_process(delta):
 		self.wheel.rotate_y(steer_angle)
 		GPlayerData.harvester_speed = (global_transform.affine_inverse().basis * velocity).z
 		reel_controller.turning_speed = GPlayerData.harvester_speed
-		# Handle Jump.
-	#	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-	#		velocity.y = JUMP_VELOCITY
 
-		# Get the input direction and handle the movement/deceleration.
-		# As good practice, you should replace UI actions with custom gameplay actions.
-		
-		# Rotate
-#		var rotation_value = input_dir.x * ROTATION_SPEED * delta
-#		if self.test_move(transform, Vector3(0,0,0)):
-#			print("[Harvester] Stuck %s" % [self.get_wall_normal()])
-#
-#		if rotation_value != 0.0:
-#			var rotated_transform = self.transform.rotated(Vector3(0.0,1.0,0.0),rotation_value)
-#			if self.test_move(rotated_transform, Vector3(0,0,0), null, 0.1):
-#				print("[Harvester] Collide on rotate")
-#			else:
-#				self.rotate_y(rotation_value)
-#				self.wheel.rotate_y(rotation_value)
-#
-#		# Move
-#		var direction = (transform.basis * Vector3(0, 0, input_dir.y)).normalized() * delta
-#		if direction:
-#			velocity.x = direction.x * get_speed()
-#			velocity.z = direction.z * get_speed()
-#		else:
-#			velocity.x = move_toward(velocity.x, 0, delta * DECEL_SPEED)
-#			velocity.z = move_toward(velocity.z, 0, delta * DECEL_SPEED)
-#
-#		move_and_slide()
-#		reel_controller.turning_speed = input_dir.y
-#		# Increment speed mult
-#		if abs(input_dir.y) > 0.0:
-#			speed_mult += abs(input_dir.y) * SPEED_MULT_INC
-#		else:
-#			if speed_mult > 1.0:
-#				speed_mult -= SPEED_MULT_INC
-#
-#		speed_mult = clamp(speed_mult, 1.0, SPEED_MULT_MAX)
 
 # CAR UTILS
 func apply_friction(delta):
@@ -143,11 +97,6 @@ func calculate_steering(delta):
 	if d < 0:
 		velocity = - new_heading * min(velocity.length(), reverse_power)
 	look_at(transform.origin + new_heading, transform.basis.y)
-	
-
-# GETTERS
-func get_speed():
-	return SPEED * speed_mult * GPlayerData.stats["speed_mult"]
 
 # CALLBACKS
 func _on_reel_area_body_entered(body):
