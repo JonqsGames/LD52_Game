@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://lt6cwt6tkj1u"
+uid="uid://cj6dr0ki1cn1e"
 path="res://.godot/imported/Reel.gltf-8daad38d17751eede42526c3ef772e91.scn"
 
 [deps]
@@ -27,4 +27,11 @@ animation/import=true
 animation/fps=30
 animation/trimming=false
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"material_0": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/items.tres"
+}
+}
+}

@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://nn3iggo8uju2"]
+
+[ext_resource type="Texture2D" uid="uid://b0kssoty5kgo6" path="res://models/chicken.png" id="1_hf7ti"]
+
+[resource]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_hf7ti")
+texture_filter = 0

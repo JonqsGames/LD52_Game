@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dcdplacoeyc56"
+uid="uid://43x5qk843iss"
 path="res://.godot/imported/SlideDoor.gltf-90122397b86df4ce993dbe46d25c13d3.scn"
 
 [deps]
@@ -27,4 +27,11 @@ animation/import=true
 animation/fps=30
 animation/trimming=false
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"material_0": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/barn.tres"
+}
+}
+}

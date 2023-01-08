@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dwnvmuxfctey0"]
+
+[ext_resource type="Script" path="res://data/augment.gd" id="1_1sxpj"]
+[ext_resource type="Texture2D" uid="uid://dxuyxjaaj7b0c" path="res://img/Augments/steering.png" id="1_vm2ss"]
+
+[resource]
+script = ExtResource("1_1sxpj")
+beak_cost = 4
+augment_name = "Steering"
+image = ExtResource("1_vm2ss")
+description = "[center]Turn faster[/center]"
+type = 3

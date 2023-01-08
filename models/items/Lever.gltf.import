@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dm7jevautcqwm"
+uid="uid://dj24i3k4j2p4u"
 path="res://.godot/imported/Lever.gltf-782b5871e2e7fa16599adfcf184743e7.scn"
 
 [deps]
@@ -27,4 +27,11 @@ animation/import=true
 animation/fps=30
 animation/trimming=false
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"material_0": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/items.tres"
+}
+}
+}

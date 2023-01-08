@@ -96,7 +96,7 @@ func set_target(p_target : Node3D):
 	self.target = p_target
 
 func harvest():
-	print("[Mob] Has been harvested")
+#	print("[Mob] Has been harvested")
 	self.is_dead = true
 	self.set_collision_layer_value(1, false)
 	self.set_collision_layer_value(2, false)
@@ -118,7 +118,7 @@ func _on_navigation_agent_3d_target_reached():
 	self.status = MobStatus.ATTACKING
 
 func _on_wave_end():
-	print("[Mob] Mob killed by end of wave")
+#	print("[Mob] Mob killed by end of wave") a
 	self.queue_free()
 
 

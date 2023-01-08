@@ -1,23 +1,23 @@
 [gd_scene load_steps=13 format=3 uid="uid://m47fldcaklxo"]
 
 [ext_resource type="Script" path="res://scripts/MobController.gd" id="1_jekua"]
-[ext_resource type="PackedScene" uid="uid://5g36qi0bhnkf" path="res://models/chicken.gltf" id="2_5c1kv"]
+[ext_resource type="PackedScene" uid="uid://1156g3x531gp" path="res://models/chicken.gltf" id="2_5c1kv"]
 [ext_resource type="Texture2D" uid="uid://cgtttis0vmqj8" path="res://img/feather.png" id="3_jmmmi"]
 [ext_resource type="AudioStream" uid="uid://cd0d5nlyc5lwp" path="res://audio/chicken2.wav" id="4_k2ke0"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_jo2p6"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2ve8x"]
 radius = 0.25
 height = 1.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_knl1q"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kpg6l"]
 shading_mode = 0
 albedo_color = Color(0.490196, 0.811765, 0.658824, 1)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ejqjc"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_88ek5"]
 radius = 0.25
 height = 1.0
 
-[sub_resource type="Animation" id="Animation_ynlim"]
+[sub_resource type="Animation" id="Animation_h7xls"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -32,7 +32,7 @@ tracks/0/keys = {
 "values": [Vector3(1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_1tjp7"]
+[sub_resource type="Animation" id="Animation_x7163"]
 resource_name = "Shred"
 length = 4.0
 tracks/0/type = "value"
@@ -48,17 +48,18 @@ tracks/0/keys = {
 "values": [Vector3(1, 1, 1), Vector3(2, 0.1, 2)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_clusj"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x2kty"]
 _data = {
-"RESET": SubResource("Animation_ynlim"),
-"Shred": SubResource("Animation_1tjp7")
+"RESET": SubResource("Animation_h7xls"),
+"Shred": SubResource("Animation_x7163")
 }
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jkw4b"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uqlnq"]
 transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
-shading_mode = 0
+diffuse_mode = 3
+specular_mode = 1
 albedo_texture = ExtResource("3_jmmmi")
 uv1_scale = Vector3(-1, -1, -1)
 texture_filter = 0
@@ -67,8 +68,8 @@ particles_anim_h_frames = 1
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="QuadMesh" id="QuadMesh_jafnm"]
-material = SubResource("StandardMaterial3D_jkw4b")
+[sub_resource type="QuadMesh" id="QuadMesh_3b02d"]
+material = SubResource("StandardMaterial3D_uqlnq")
 
 [node name="Mob" type="CharacterBody3D"]
 collision_layer = 2
@@ -79,12 +80,12 @@ script = ExtResource("1_jekua")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 visible = false
-mesh = SubResource("CapsuleMesh_jo2p6")
-surface_material_override/0 = SubResource("StandardMaterial3D_knl1q")
+mesh = SubResource("CapsuleMesh_2ve8x")
+surface_material_override/0 = SubResource("StandardMaterial3D_kpg6l")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.541018, 0)
-shape = SubResource("CapsuleShape3D_ejqjc")
+shape = SubResource("CapsuleShape3D_88ek5")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 neighbor_distance = 0.1
@@ -95,7 +96,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_clusj")
+"": SubResource("AnimationLibrary_x2kty")
 }
 
 [node name="RunningFeather" type="CPUParticles3D" parent="."]
@@ -103,7 +104,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.752293, 0)
 amount = 4
 lifetime = 5.0
 lifetime_randomness = 1.0
-mesh = SubResource("QuadMesh_jafnm")
+mesh = SubResource("QuadMesh_3b02d")
 direction = Vector3(0, 0.25, 1)
 spread = 25.0
 gravity = Vector3(0, -2, 0)
@@ -127,7 +128,7 @@ lifetime = 5.0
 one_shot = true
 explosiveness = 1.0
 lifetime_randomness = 1.0
-mesh = SubResource("QuadMesh_jafnm")
+mesh = SubResource("QuadMesh_3b02d")
 direction = Vector3(0, 0.25, 1)
 spread = 90.0
 gravity = Vector3(0, -2, 0)

@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://5g36qi0bhnkf"
+uid="uid://1156g3x531gp"
 path="res://.godot/imported/chicken.gltf-6015de12fd9a076c87994e29c1ffa818.scn"
 
 [deps]
@@ -27,4 +27,11 @@ animation/import=true
 animation/fps=30
 animation/trimming=false
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"material_0": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/chicken.tres"
+}
+}
+}

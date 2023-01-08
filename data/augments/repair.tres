@@ -8,5 +8,5 @@ script = ExtResource("1_2pm0b")
 beak_cost = 5
 augment_name = "Repair Barn"
 image = ExtResource("1_ebpce")
-description = "[center]Fully [color=#7fa533]repair[/color] the barn[/center]"
+description = "[center][color=#316436]Repair[/color] the barn[/center]"
 type = 2

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6qbvjie83pn4"
-path="res://.godot/imported/decor.png-12ebde6add81bd6eb061a7b31a55562a.ctex"
+uid="uid://dxuyxjaaj7b0c"
+path="res://.godot/imported/steering.png-7145fe89a036a6ab19798020e56a77fc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://models/decor.png"
-dest_files=["res://.godot/imported/decor.png-12ebde6add81bd6eb061a7b31a55562a.ctex"]
+source_file="res://img/Augments/steering.png"
+dest_files=["res://.godot/imported/steering.png-7145fe89a036a6ab19798020e56a77fc.ctex"]
 
 [params]
 
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

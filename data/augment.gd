@@ -4,7 +4,8 @@ class_name Augment
 enum AugmentType {
 	ReelExtend,
 	SpeedBoost,
-	Repair
+	Repair,
+	SteeringImprove
 }
 
 @export var beak_cost : int

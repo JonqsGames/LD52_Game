@@ -3,6 +3,7 @@ extends Node3D
 const SPAWN_DELTA = 0.75
 
 @export var target : Node3D
+@export var unlock_wave = 0
 
 var last_spawn = -1
 var MobPrefab = preload("res://prefabs/mob.tscn")
@@ -11,7 +12,7 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
-	if GPlayerData.is_wave_running():
+	if GPlayerData.is_wave_running() and GPlayerData.wave_counter >= self.unlock_wave:
 		if last_spawn < 0 or last_spawn > SPAWN_DELTA:
 			last_spawn = 0.0
 			self.produce_mob()

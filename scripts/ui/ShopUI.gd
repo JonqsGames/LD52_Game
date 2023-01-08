@@ -12,7 +12,8 @@ extends CenterContainer
 var res_list = [
 	load("res://data/augments/reel_extand.tres"),
 	load("res://data/augments/repair.tres"),
-	load("res://data/augments/speed_boost.tres")
+	load("res://data/augments/speed_boost.tres"),
+	load("res://data/augments/steering.tres")
 ]
 var res_reel_extand = load("res://data/augments/reel_extand.tres")
 var random_gen = RandomNumberGenerator.new()
@@ -47,3 +48,14 @@ func generate_shop():
 
 func _on_player_leave_shop():
 	self.visible = false
+
+
+func _on_refresh_gui_input(event):
+	if event.is_action_pressed("ui_accept"):
+			self.generate_shop()
+			card_list[0].grab_focus()
+
+
+func _on_exit_gui_input(event):
+	if event.is_action_pressed("ui_accept"):
+		GPlayerData.leave_shop()

@@ -60,8 +60,9 @@ offset_bottom = 40.0
 theme_override_colors/default_color = Color(0.152941, 0.211765, 0.207843, 1)
 theme_override_fonts/normal_font = ExtResource("2_t572h")
 theme_override_fonts/bold_font = ExtResource("2_t572h")
+theme_override_font_sizes/normal_font_size = 22
 bbcode_enabled = true
-text = "[center]Extand the [color=#b95358]reel[/color] horizontally[/center]"
+text = "[center]Extand the [color=#b95358]reel[/color][/center]"
 scroll_active = false
 
 [node name="Ressources" type="CenterContainer" parent="VBoxContainer"]

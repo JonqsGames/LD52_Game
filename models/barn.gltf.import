@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://rd22j4kfjqwl"
+uid="uid://7q54ceiml26w"
 path="res://.godot/imported/barn.gltf-34ac1484c9e8e61d10e207b30a428377.scn"
 
 [deps]
@@ -27,4 +27,11 @@ animation/import=true
 animation/fps=30
 animation/trimming=false
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"material_0": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/barn.tres"
+}
+}
+}

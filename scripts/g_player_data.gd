@@ -28,7 +28,8 @@ var harvester_speed = 0
 
 var stats = {
 	"reel_length" : 0.75,
-	"speed_mult" : 1.0
+	"speed_mult" : 1.0,
+	"steering_mult": 1.3
 }
 var bonus_buyed = {}
 
@@ -106,6 +107,8 @@ func buy_augment(augment_data : Augment):
 			self.stats["speed_mult"] += 0.1
 		Augment.AugmentType.Repair:
 			self.life = START_LIFE_AMOUNT
+		Augment.AugmentType.SteeringImprove:
+			self.stats["steering_mult"] += 0.1
 	if bonus_buyed.has(augment_data.augment_name):
 		bonus_buyed[augment_data.augment_name] += 1
 	else:
@@ -139,7 +142,8 @@ func reset_data():
 	self.harvested_mob_total = 0
 	self.stats = {
 		"reel_length" : 0.75,
-		"speed_mult" : 1.0
+		"speed_mult" : 1.0,
+		"steering_mult": 1.0
 	}
 	self.bonus_buyed = {}
 	self.life = START_LIFE_AMOUNT

@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bvcwtrw6wscss"
+uid="uid://cleef7e3bh7w2"
 path="res://.godot/imported/pine_tree.gltf-7beac8627de1e845418e37e394223abd.scn"
 
 [deps]
@@ -28,6 +28,12 @@ animation/fps=30
 animation/trimming=false
 import_script/path=""
 _subresources={
+"materials": {
+"material_0": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/decor.tres"
+}
+},
 "meshes": {
 "default_mesh": {
 "generate/lightmap_uv": 0,

@@ -37,9 +37,9 @@ func _ready():
 	# Attach to global events
 	GPlayerData.game_enter_shop.connect(self._on_entering_shop)
 	GPlayerData.game_leave_shop.connect(self._on_leaving_shop)
-	var mat = $SecurityScreen.get_surface_override_material(0) 
-	mat.albedo_texture = security_camera_texture
-	$SecurityScreen.set_surface_override_material(0,mat)
+#	var mat = $SecurityScreen.get_surface_override_material(0) 
+#	mat.albedo_texture = security_camera_texture
+#	$SecurityScreen.set_surface_override_material(0,mat)
 
 func _input(event):
 	if !GPlayerData.is_locked():
@@ -86,8 +86,9 @@ func apply_friction(delta):
 	accel += drag_force + friction_force
 
 func calculate_steering(delta):
-	var rear_wheel = transform.origin + transform.basis.z * wheel_base / 2.0
-	var front_wheel = transform.origin - transform.basis.z * wheel_base / 2.0
+	var steer_calc = wheel_base / GPlayerData.stats["steering_mult"]
+	var rear_wheel = transform.origin + transform.basis.z * steer_calc / 2.0
+	var front_wheel = transform.origin - transform.basis.z * steer_calc / 2.0
 	rear_wheel += velocity * delta
 	front_wheel += velocity.rotated(transform.basis.y, steer_angle) * delta
 	var new_heading = rear_wheel.direction_to(front_wheel)

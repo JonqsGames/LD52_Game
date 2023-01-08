@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://3fiw7mrqmjg1"
+uid="uid://c11bp0radowd2"
 path="res://.godot/imported/Blade.gltf-2cda15f0d7fd12cc5d1a8e694b45e397.scn"
 
 [deps]
@@ -27,4 +27,11 @@ animation/import=true
 animation/fps=30
 animation/trimming=false
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"material_0": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/items.tres"
+}
+}
+}

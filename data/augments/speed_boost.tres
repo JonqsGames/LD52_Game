@@ -8,5 +8,5 @@ script = ExtResource("1_q6jv5")
 beak_cost = 3
 augment_name = "Speed Boost"
 image = ExtResource("1_1uku7")
-description = "[center]Increase [color=#7fa533]speed[/color] of your harvester[/center]"
+description = "[center]Increase [color=#316436]speed[/color][/center]"
 type = 1

@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b5xx3tex0wlk8"
+uid="uid://cfojweelk644l"
 path="res://.godot/imported/Wheel.gltf-e6b165e3ee09c059939d97e06f866079.scn"
 
 [deps]
@@ -27,4 +27,11 @@ animation/import=true
 animation/fps=30
 animation/trimming=false
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"material_0": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/items.tres"
+}
+}
+}

@@ -1,22 +1,21 @@
-[gd_scene load_steps=21 format=3 uid="uid://bgh6eg3caf2ht"]
+[gd_scene load_steps=23 format=3 uid="uid://bgh6eg3caf2ht"]
 
 [ext_resource type="Script" path="res://scripts/HarvesterController.gd" id="1_wngk4"]
+[ext_resource type="Material" uid="uid://cjqwjmhh7afed" path="res://materials/red_debug.tres" id="2_ac4u3"]
+[ext_resource type="Material" uid="uid://c5pgj7f8kodah" path="res://materials/black_debug.tres" id="2_idkku"]
 [ext_resource type="Texture2D" uid="uid://b020aco5aibee" path="res://models/items.png" id="2_upi5h"]
 [ext_resource type="Script" path="res://scripts/SpeedPointer.gd" id="3_dslmc"]
 [ext_resource type="Script" path="res://scripts/ReelController.gd" id="3_tbixh"]
 [ext_resource type="Script" path="res://scripts/WavePointer.gd" id="4_5aykd"]
-[ext_resource type="PackedScene" uid="uid://b5xx3tex0wlk8" path="res://models/items/Wheel.gltf" id="4_eavlk"]
-[ext_resource type="PackedScene" uid="uid://dm7jevautcqwm" path="res://models/items/Lever.gltf" id="5_jsxlw"]
-[ext_resource type="PackedScene" uid="uid://lt6cwt6tkj1u" path="res://models/items/Reel.gltf" id="6_5h8i5"]
-[ext_resource type="PackedScene" uid="uid://3fiw7mrqmjg1" path="res://models/items/Blade.gltf" id="6_mrnrk"]
+[ext_resource type="PackedScene" uid="uid://cfojweelk644l" path="res://models/items/Wheel.gltf" id="4_eavlk"]
+[ext_resource type="Material" uid="uid://bchiea51s3svf" path="res://materials/gray_debug.tres" id="4_t3mwo"]
+[ext_resource type="PackedScene" uid="uid://dj24i3k4j2p4u" path="res://models/items/Lever.gltf" id="5_jsxlw"]
+[ext_resource type="PackedScene" uid="uid://cj6dr0ki1cn1e" path="res://models/items/Reel.gltf" id="6_5h8i5"]
+[ext_resource type="PackedScene" uid="uid://c11bp0radowd2" path="res://models/items/Blade.gltf" id="6_mrnrk"]
 [ext_resource type="Script" path="res://scripts/Blade.gd" id="7_q2b77"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_8dlyk"]
 size = Vector3(2, 0.5, 2)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_up6wv"]
-shading_mode = 0
-albedo_color = Color(0.72549, 0.32549, 0.345098, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7ye6k"]
 radius = 1.03498
@@ -34,9 +33,8 @@ region = Rect2(160, 64, 16, 32)
 atlas = ExtResource("2_upi5h")
 region = Rect2(112, 64, 48, 48)
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_luekd"]
-height = 4.0
-radius = 0.4
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t2gjx"]
+height = 4.83187
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_w6631"]
 height = 4.0
@@ -53,12 +51,13 @@ shading_mode = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 collision_layer = 5
 collision_mask = 257
+wall_min_slide_angle = 0.523599
 script = ExtResource("1_wngk4")
 shop_camera_holder = NodePath("")
 
 [node name="Structure" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_8dlyk")
-surface_material_override/0 = SubResource("StandardMaterial3D_up6wv")
+surface_material_override/0 = ExtResource("2_ac4u3")
 
 [node name="StructureCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.634071, 0.384849)
@@ -68,6 +67,7 @@ shape = SubResource("CapsuleShape3D_7ye6k")
 
 [node name="Cartel" type="CSGCombiner3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.07211, -0.158652)
+material_override = ExtResource("2_idkku")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Cartel"]
 
@@ -90,6 +90,7 @@ size = Vector3(0.90053, 0.603704, 0.887691)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.363767, -0.564566)
 
 [node name="PanelBoard" type="CSGCombiner3D" parent="PanelBoard"]
+material_override = ExtResource("4_t3mwo")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="PanelBoard/PanelBoard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.341141, 0.0411851)
@@ -120,6 +121,8 @@ transform = Transform3D(0.15, 0, 0, 0, 0.103526, 0.108546, 0, -0.108546, 0.10352
 
 [node name="Sprite3D" type="Sprite3D" parent="PanelBoard/SpeedMeter"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0, 0)
+shaded = true
+alpha_cut = 1
 texture_filter = 0
 texture = SubResource("AtlasTexture_r6113")
 
@@ -136,6 +139,7 @@ transform = Transform3D(0.15, 0, 0, 0, 0.134223, 0.0669648, 0, -0.0669648, 0.134
 
 [node name="Sprite3D" type="Sprite3D" parent="PanelBoard/WaveMeter"]
 transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, 0, 0, 0)
+shaded = true
 texture_filter = 0
 texture = SubResource("AtlasTexture_ga6ni")
 
@@ -168,7 +172,7 @@ fov = 80.0
 
 [node name="ReelCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.30915, -1.51673)
-shape = SubResource("CylinderShape3D_luekd")
+shape = SubResource("CapsuleShape3D_t2gjx")
 
 [node name="ReelArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.30915, -1.5)
@@ -371,6 +375,7 @@ spot_range = 15.0
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
 transform = Transform3D(0.691816, 0, -0.722074, 0, 1, 0, 0.722074, 0, 0.691816, 0.427188, 1.34047, -0.550491)
+material_override = ExtResource("4_t3mwo")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, 0, -0.0490907)

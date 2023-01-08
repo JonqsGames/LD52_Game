@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c5yiaq6fupyxi"]
+
+[ext_resource type="Texture2D" uid="uid://b020aco5aibee" path="res://models/items.png" id="1_q6wlv"]
+
+[resource]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_q6wlv")
+texture_filter = 0
