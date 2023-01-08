@@ -51,7 +51,6 @@ grow_vertical = 2
 script = ExtResource("1_8amfy")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
 offset_right = 640.0
 offset_bottom = 400.0
 scale = Vector2(2, 2)
@@ -59,16 +58,19 @@ texture = ExtResource("2_sfj53")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 custom_minimum_size = Vector2(1280, 800)
-layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="HBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-layout_mode = 2
+offset_left = 72.0
+offset_top = 25.0
+offset_right = 1208.0
+offset_bottom = 775.0
 theme_override_constants/separation = 600
 
 [node name="Label" type="Label" parent="CenterContainer/HBoxContainer"]
-layout_mode = 2
+offset_right = 1136.0
+offset_bottom = 99.0
 theme_override_colors/font_color = Color(0.498039, 0.647059, 0.2, 1)
 theme_override_colors/font_shadow_color = Color(0.968627, 0.964706, 0.858824, 1)
 theme_override_fonts/font = ExtResource("1_ro78q")
@@ -77,8 +79,10 @@ text = "Night of the Zombie Chickens"
 horizontal_alignment = 1
 
 [node name="Start" type="Label" parent="CenterContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.681337, 0.307907, 0.33025, 1)
+offset_top = 699.0
+offset_right = 1136.0
+offset_bottom = 750.0
+theme_override_colors/font_color = Color(0.29193, 0.152833, 0.199299, 1)
 theme_override_fonts/font = ExtResource("1_ro78q")
 theme_override_font_sizes/font_size = 64
 text = "Press space to start
